@@ -51,6 +51,9 @@ function App() {
     setListOfNamesArray(listAfterDeletion);
   }
 
+  function handleClearAll() {
+    setListOfNamesArray([]);
+  }
   return (
     <div>
       <Header></Header>
@@ -85,6 +88,7 @@ function App() {
             deleteGuest={deleteGuest}
           />
         </div>
+        <button onClick={handleClearAll}>Clear All</button>
       </div>
     </div>
   );
