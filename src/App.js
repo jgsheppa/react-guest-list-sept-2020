@@ -7,21 +7,39 @@ import Header from './Header.js';
 import { jsx, css } from '@emotion/core';
 import GuestList from './GuestLIst';
 import shortid from 'shortid';
+import UserInput from './UserInput.js';
 
-const inputStyles = css`
+const containerStyles = css`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-content: center;
+`;
+
+const buttonStyles = css`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px 20px;
+  max-width: 300px;
+
+  button {
+    background-color: #fff;
+    padding: 10px 30px;
+    border-color: #666;
+    border-width: 2px;
+    font-weight: 200px;
+  }
 `;
 
 function App() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [listOfNamesArray, setListOfNamesArray] = useState([]);
+  const [rsvp, setRSVP] = useState('Attending');
   const wholeListOfNames = [
     ...listOfNamesArray,
-    { id: shortid.generate(), firstName, lastName },
+    { id: shortid.generate(), firstName, lastName, rsvp },
   ];
 
   const handleFirstNameChange = (e) => {
@@ -36,6 +54,10 @@ function App() {
     setListOfNamesArray(wholeListOfNames);
     setLastName('');
     setFirstName('');
+  };
+
+  const handleRSVP = (e) => {
+    setRSVP(e.target.value);
   };
 
   function deleteGuest(guestID) {
@@ -55,31 +77,17 @@ function App() {
     setListOfNamesArray([]);
   }
   return (
-    <div>
+    <>
       <Header></Header>
-      <div css={inputStyles}>
-        <div>
-          <label>
-            First name:
-            <input
-              // ref={register}
-              value={firstName}
-              onChange={handleFirstNameChange}
-            ></input>
-          </label>
-        </div>
-        <div>
-          <label>
-            Last name:
-            <input
-              // ref={register}
-              value={lastName}
-              onChange={handleLastNameChange}
-            ></input>
-          </label>
-        </div>
-        <div>
+      <div css={containerStyles}>
+        <UserInput
+          handleFirstNameChange={handleFirstNameChange}
+          handleLastNameChange={handleLastNameChange}
+          handleRSVP={handleRSVP}
+        ></UserInput>
+        <div css={buttonStyles}>
           <button onClick={handleSubmit}>Submit</button>
+          <button onClick={handleClearAll}>Clear All</button>
         </div>
         <div>
           <GuestList
@@ -88,9 +96,8 @@ function App() {
             deleteGuest={deleteGuest}
           />
         </div>
-        <button onClick={handleClearAll}>Clear All</button>
       </div>
-    </div>
+    </>
   );
 }
 

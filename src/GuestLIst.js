@@ -11,40 +11,52 @@ function GuestList({ listOfNamesArray, deleteGuest, id }) {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    width: 500px;
-    border-color: red;
-    border-radius: 8px;
-    border-width: 4px;
-  `;
 
-  const nameListStyles = css`
-    display: flex;
-    align-content: center;
-    justify-content: space-between;
-    list-style-type: none;
-    padding: 20px 50px;
-    padding: 0;
-  `;
+    > div {
+      display: flex;
+      flex-direction: column;
+      align-content: center;
+      justify-content: space-between;
+      width: 450px;
+    }
 
-  const buttonStyles = css`
-    margin-left: 10px;
+    li {
+      display: flex;
+      justify-content: space-between;
+      list-style-type: none;
+      border-color: red;
+      border-radius: 8px;
+      border-width: 4px;
+    }
+
+    li div {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+    }
   `;
 
   return (
     <div>
-      <ul>
-        <div css={unorderedListStyles}>
+      <ul css={unorderedListStyles}>
+        <div>
+          <li>
+            <u>Name</u> <u>RSVP-Response</u>
+          </li>
           {listOfNamesArray.map((item) => (
-            <li key={item.id} css={nameListStyles}>
+            <li key={item.id}>
               {item.firstName} {item.lastName}
-              <button
-                onClick={() => {
-                  deleteGuest(item);
-                }}
-                css={buttonStyles}
-              >
-                X
-              </button>
+              <div>
+                <b>Status: </b>
+                <i>{item.rsvp}</i>
+                <button
+                  onClick={() => {
+                    deleteGuest(item);
+                  }}
+                >
+                  X
+                </button>
+              </div>
             </li>
           ))}
         </div>
