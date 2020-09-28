@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import './App.css';
 import { jsx, css } from '@emotion/core';
 
-function GuestList({ listOfNamesArray, deleteGuest, id }) {
+function GuestList({ deleteGuest, filterListOfNames }) {
   const unorderedListStyles = css`
     display: flex;
     flex-direction: column;
@@ -43,7 +43,7 @@ function GuestList({ listOfNamesArray, deleteGuest, id }) {
           <li>
             <u>Name</u> <u>RSVP-Response</u>
           </li>
-          {listOfNamesArray.map((item) => (
+          {filterListOfNames.map((item) => (
             <li key={item.id}>
               {item.firstName} {item.lastName}
               <div>

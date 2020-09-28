@@ -21,7 +21,7 @@ const buttonStyles = css`
   flex-direction: row;
   justify-content: space-between;
   padding: 10px 20px;
-  max-width: 300px;
+  max-width: 400px;
 
   button {
     background-color: #fff;
@@ -30,6 +30,13 @@ const buttonStyles = css`
     border-width: 2px;
     font-weight: 200px;
   }
+
+  .clear-all {
+    background-color: #fd2127;
+    color: #fff;
+    border-color: #fff;
+    border-width: 2px;
+  }
 `;
 
 function App() {
@@ -37,6 +44,7 @@ function App() {
   const [lastName, setLastName] = useState('');
   const [listOfNamesArray, setListOfNamesArray] = useState([]);
   const [rsvp, setRSVP] = useState('Attending');
+  const [filter, setFilter] = useState('unfiltered');
   const wholeListOfNames = [
     ...listOfNamesArray,
     { id: shortid.generate(), firstName, lastName, rsvp },
@@ -76,6 +84,27 @@ function App() {
   function handleClearAll() {
     setListOfNamesArray([]);
   }
+
+  const filterListOfNames = listOfNamesArray.filter((name) => {
+    if (filter === 'Attending' && name.rsvp !== 'Attending') {
+      return false;
+    } else if (filter === 'Not Attending' && name.rsvp !== 'Not Attending') {
+      return false;
+    }
+    return true;
+  });
+
+  function handleAttendingFilter() {
+    setFilter('Attending');
+  }
+
+  function handleNonAttendingFilter() {
+    setFilter('Not Attending');
+  }
+
+  function handleViewAllGuests() {
+    setFilter('unfiltered');
+  }
   return (
     <>
       <Header></Header>
@@ -87,13 +116,22 @@ function App() {
         ></UserInput>
         <div css={buttonStyles}>
           <button onClick={handleSubmit}>Submit</button>
-          <button onClick={handleClearAll}>Clear All</button>
+          <button className="clear-all" onClick={handleClearAll}>
+            Clear All
+          </button>
+        </div>
+        <div css={buttonStyles}>
+          <button onClick={handleNonAttendingFilter}>
+            Filter Non-Attending
+          </button>
+          <button onClick={handleAttendingFilter}>Filter Attending</button>
+          <button onClick={handleViewAllGuests}>Show All Guests</button>
         </div>
         <div>
           <GuestList
-            listOfNamesArray={listOfNamesArray}
             wholeListOfNames={wholeListOfNames}
             deleteGuest={deleteGuest}
+            filterListOfNames={filterListOfNames}
           />
         </div>
       </div>
