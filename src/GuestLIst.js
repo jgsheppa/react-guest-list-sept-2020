@@ -20,6 +20,14 @@ function GuestList({ deleteGuest, filterListOfNames }) {
       width: 450px;
     }
 
+    div b {
+      margin-right: 5px;
+    }
+
+    div i {
+      margin-right: 20px;
+    }
+
     li {
       display: flex;
       justify-content: space-between;
@@ -27,12 +35,22 @@ function GuestList({ deleteGuest, filterListOfNames }) {
       border-color: red;
       border-radius: 8px;
       border-width: 4px;
+      padding: 5px 0;
     }
 
     li div {
       display: flex;
       flex-direction: row;
       justify-content: space-around;
+    }
+
+    button {
+      font-size: 12px;
+      border: solid;
+      border-color: #666;
+      border-radius: 5px;
+      border-width: 2px;
+      background-color: #ffffff;
     }
   `;
 
