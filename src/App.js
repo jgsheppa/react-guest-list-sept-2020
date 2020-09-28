@@ -1,7 +1,7 @@
 /** @jsx jsx */
 /** @jsxFrag React.Fragment */
 /*eslint-disable no-unused-vars*/
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Header from './Header.js';
 import { jsx, css } from '@emotion/core';
@@ -38,7 +38,7 @@ const buttonStyles = css`
   max-width: 1440px;
 
   button {
-    background-color: #7BFFA0;
+    background-color: #7bffa0;
     padding: 10px 30px;
     border-color: #fff;
     border-width: 2px;
@@ -54,6 +54,7 @@ const buttonStyles = css`
     border-color: #fff;
     border-width: 2px;
     margin-top: 50px;
+  }
 `;
 
 const filterStyles = css`
@@ -70,21 +71,51 @@ const filterStyles = css`
     border-width: 2px;
     font-weight: 200px;
   }
-
-  
-  }
 `;
 
 function App() {
+  const baseUrl = 'http://localhost:5000';
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [listOfNamesArray, setListOfNamesArray] = useState([]);
-  const [rsvp, setRSVP] = useState('Attending');
+  const [rsvp, setRSVP] = useState('attending');
+  const [idCount, setIdCount] = useState(0);
   const [filter, setFilter] = useState('unfiltered');
   const wholeListOfNames = [
     ...listOfNamesArray,
-    { id: shortid.generate(), firstName, lastName, rsvp },
+    { id: idCount, firstName, lastName, rsvp },
   ];
+
+  useEffect(() => {
+    async function getAllGuests() {
+      const response = await fetch(`${baseUrl}/`);
+      const allGuests = await response.json();
+      return setListOfNamesArray(allGuests);
+    }
+
+    async function updateGuest() {
+      const response = await fetch(`${baseUrl}/1`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ attending: true }),
+      });
+      const updatedGuest = await response.json();
+      return updatedGuest;
+    }
+
+    async function deleteGuest() {
+      const response = await fetch(`${baseUrl}/1`, { method: 'DELETE' });
+      const deletedGuest = await response.json();
+      return deletedGuest;
+    }
+
+    updateGuest();
+    getAllGuests();
+
+    deleteGuest();
+  }, []);
 
   const handleFirstNameChange = (e) => {
     setFirstName(e.target.value);
@@ -98,6 +129,22 @@ function App() {
     setListOfNamesArray(wholeListOfNames);
     setLastName('');
     setFirstName('');
+    setIdCount(idCount + 1);
+
+    async function createNewGuest() {
+      const response = await fetch(`${baseUrl}/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ firstName, lastName }),
+      });
+      console.log(response);
+      const createdGuest = await response.json();
+      console.log(createdGuest);
+      return createdGuest;
+    }
+    createNewGuest(firstName, lastName, rsvp);
   };
 
   const handleRSVP = (e) => {
@@ -106,15 +153,21 @@ function App() {
 
   function deleteGuest(guestID) {
     const indexOfName = listOfNamesArray.indexOf(guestID);
-    console.log(indexOfName);
     let listAfterDeletion = [];
     for (let i = 0; i < listOfNamesArray.length; i++) {
       if (i !== indexOfName) {
         listAfterDeletion.push(listOfNamesArray[i]);
-        console.log(listAfterDeletion);
       }
     }
     setListOfNamesArray(listAfterDeletion);
+
+    async function deleteGuest() {
+      const response = await fetch(`${baseUrl}/1`, { method: 'DELETE' });
+      const deletedGuest = await response.json();
+      return deletedGuest;
+    }
+
+    deleteGuest();
   }
 
   function handleClearAll() {

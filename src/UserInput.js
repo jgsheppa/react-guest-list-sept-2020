@@ -51,6 +51,7 @@ function UserInput({
           <label>
             RSVP:{' '}
             <select onChange={handleRSVP}>
+              <option></option>
               <option onChange={handleRSVP} value="Attending">
                 Attending
               </option>
