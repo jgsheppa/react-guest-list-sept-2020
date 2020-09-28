@@ -7,10 +7,22 @@ import { jsx, css } from '@emotion/core';
 
 const inputStyles = css`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-width: 500px;
+  max-width: 400px;
+
+  div {
+    display: flex;
+    align-content: flex-start;
+    margin: 5px 0;
+    max-width: 250px;
+    max-height: 120px;
+  }
+
+  input {
+    margin-left: 5px;
+  }
 `;
 
 function UserInput({
@@ -44,9 +56,6 @@ function UserInput({
               </option>
               <option onChange={handleRSVP} value="Not Attending">
                 Not Attending
-              </option>
-              <option onChange={handleRSVP} value="Maybe">
-                Maybe
               </option>
             </select>
           </label>

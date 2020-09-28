@@ -14,14 +14,54 @@ const containerStyles = css`
   flex-direction: column;
   justify-content: center;
   align-content: center;
+  max-width: 1440px;
+`;
+
+const inputContainterStyles = css`
+  display: flex;
+  display: row;
+  justify-content: center;
+  align-content: center;
+  border: solid;
+  border-color: #666;
+  border-width: 2px;
+  padding: 20px;
+  max-width: 400px;
 `;
 
 const buttonStyles = css`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
+  align-content: center;
   padding: 10px 20px;
-  max-width: 400px;
+  max-width: 1440px;
+
+  button {
+    background-color: #7BFFA0;
+    padding: 10px 30px;
+    border-color: #fff;
+    border-width: 2px;
+    font-weight: 800px;
+    border-radius: 20px;
+    max-height: 40px;
+    max-width: 120px;
+  }
+
+  .clear-all {
+    background-color: #fd2127;
+    color: #fff;
+    border-color: #fff;
+    border-width: 2px;
+    margin-top: 50px;
+`;
+
+const filterStyles = css`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 10px 20px;
+  max-width: 1440px;
 
   button {
     background-color: #fff;
@@ -31,11 +71,7 @@ const buttonStyles = css`
     font-weight: 200px;
   }
 
-  .clear-all {
-    background-color: #fd2127;
-    color: #fff;
-    border-color: #fff;
-    border-width: 2px;
+  
   }
 `;
 
@@ -109,22 +145,19 @@ function App() {
     <>
       <Header></Header>
       <div css={containerStyles}>
-        <UserInput
-          handleFirstNameChange={handleFirstNameChange}
-          handleLastNameChange={handleLastNameChange}
-          handleRSVP={handleRSVP}
-        ></UserInput>
-        <div css={buttonStyles}>
-          <button onClick={handleSubmit}>Submit</button>
-          <button className="clear-all" onClick={handleClearAll}>
-            Clear All
-          </button>
+        <div css={inputContainterStyles}>
+          <UserInput
+            handleFirstNameChange={handleFirstNameChange}
+            handleLastNameChange={handleLastNameChange}
+            handleRSVP={handleRSVP}
+          ></UserInput>
+          <div css={buttonStyles}>
+            <button onClick={handleSubmit}>Submit</button>
+          </div>
         </div>
-        <div css={buttonStyles}>
-          <button onClick={handleNonAttendingFilter}>
-            Filter Non-Attending
-          </button>
-          <button onClick={handleAttendingFilter}>Filter Attending</button>
+        <div css={filterStyles}>
+          <button onClick={handleNonAttendingFilter}>Non-Attending</button>
+          <button onClick={handleAttendingFilter}>Attending</button>
           <button onClick={handleViewAllGuests}>Show All Guests</button>
         </div>
         <div>
@@ -134,6 +167,11 @@ function App() {
             filterListOfNames={filterListOfNames}
           />
         </div>
+      </div>
+      <div css={buttonStyles}>
+        <button className="clear-all" onClick={handleClearAll}>
+          Clear All
+        </button>
       </div>
     </>
   );
