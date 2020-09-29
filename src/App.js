@@ -72,8 +72,7 @@ const filterStyles = css`
   }
 `;
 
-const baseUrl = 'https://upleveled-api.herokuapp.com/';
-console.log(baseUrl);
+const baseUrl = 'https://upleveled-api.herokuapp.com';
 
 function App() {
   const [firstName, setFirstName] = useState('');
@@ -86,6 +85,8 @@ function App() {
     ...listOfNamesArray,
     { id: idCount, firstName, lastName, attending },
   ];
+
+  console.log(listOfNamesArray);
 
   useEffect(() => {
     async function getAllGuests() {
@@ -141,7 +142,11 @@ function App() {
   };
 
   const handleRSVP = (e) => {
-    setAttending(e.target.value);
+    if (e.target.value === 'Attending') {
+      setAttending(true);
+    } else {
+      setAttending(false);
+    }
   };
 
   function deleteGuest(guestID) {
@@ -152,16 +157,8 @@ function App() {
         listAfterDeletion.push(listOfNamesArray[i]);
       }
     }
+        
     setListOfNamesArray(listAfterDeletion);
-
-    async function deleteGuest() {
-      const response = await fetch(`${baseUrl}/1`, { method: 'DELETE' });
-      const deletedGuest = await response.json();
-      console.log(deletedGuest);
-      return deletedGuest;
-    }
-
-    deleteGuest();
   }
 
   function handleClearAll() {
@@ -215,6 +212,7 @@ function App() {
             wholeListOfNames={wholeListOfNames}
             deleteGuest={deleteGuest}
             filterListOfNames={filterListOfNames}
+            // deleteGuestFromServer={deleteGuestFromServer}
           />
         </div>
       </div>

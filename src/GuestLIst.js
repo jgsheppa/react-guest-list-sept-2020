@@ -54,6 +54,29 @@ function GuestList({ deleteGuest, filterListOfNames }) {
     }
   `;
 
+  function isAttending(obj) {
+    if (obj.attending === true) {
+      return 'Attending';
+    }
+    return 'Not Attending';
+  }
+
+  const baseUrl = 'https://upleveled-api.herokuapp.com';
+
+  async function deleteGuestFromServer(item) {
+    const response = await fetch(`${baseUrl}/${item.id}`, {
+      method: 'DELETE',
+    });
+    const deletedGuest = await response.json();
+    console.log(deletedGuest);
+    return deletedGuest;
+  }
+
+  function deleteFromClientAndServer(item) {
+    deleteGuestFromServer(item);
+    deleteGuest(item);
+  }
+
   return (
     <div>
       <ul css={unorderedListStyles}>
@@ -66,10 +89,10 @@ function GuestList({ deleteGuest, filterListOfNames }) {
               {item.firstName} {item.lastName}
               <div>
                 <b>Status: </b>
-                <i>{item.rsvp}</i>
+                <i>{isAttending(item)}</i>
                 <button
                   onClick={() => {
-                    deleteGuest(item);
+                    deleteFromClientAndServer(item);
                   }}
                 >
                   X
