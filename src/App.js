@@ -6,7 +6,6 @@ import './App.css';
 import Header from './Header.js';
 import { jsx, css } from '@emotion/core';
 import GuestList from './GuestLIst';
-import shortid from 'shortid';
 import UserInput from './UserInput.js';
 
 const containerStyles = css`
@@ -73,8 +72,9 @@ const filterStyles = css`
   }
 `;
 
+const baseUrl = 'https://upleveled-api.herokuapp.com/';
+
 function App() {
-  const baseUrl = 'https://git.heroku.com/upleveled-api.git';
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [listOfNamesArray, setListOfNamesArray] = useState([]);
