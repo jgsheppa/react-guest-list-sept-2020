@@ -79,12 +79,12 @@ function App() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [listOfNamesArray, setListOfNamesArray] = useState([]);
-  const [rsvp, setRSVP] = useState('attending');
+  const [attending, setAttending] = useState(true);
   const [idCount, setIdCount] = useState(0);
   const [filter, setFilter] = useState('unfiltered');
   const wholeListOfNames = [
     ...listOfNamesArray,
-    { id: idCount, firstName, lastName, rsvp },
+    { id: idCount, firstName, lastName, attending },
   ];
 
   useEffect(() => {
@@ -145,11 +145,11 @@ function App() {
       console.log(createdGuest);
       return createdGuest;
     }
-    createNewGuest(firstName, lastName, rsvp);
+    createNewGuest(firstName, lastName, attending);
   };
 
   const handleRSVP = (e) => {
-    setRSVP(e.target.value);
+    setAttending(e.target.value);
   };
 
   function deleteGuest(guestID) {
@@ -176,9 +176,12 @@ function App() {
   }
 
   const filterListOfNames = listOfNamesArray.filter((name) => {
-    if (filter === 'Attending' && name.rsvp !== 'Attending') {
+    if (filter === 'Attending' && name.attending !== 'Attending') {
       return false;
-    } else if (filter === 'Not Attending' && name.rsvp !== 'Not Attending') {
+    } else if (
+      filter === 'Not Attending' &&
+      name.attending !== 'Not Attending'
+    ) {
       return false;
     }
     return true;
