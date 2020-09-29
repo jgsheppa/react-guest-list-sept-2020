@@ -86,8 +86,6 @@ function App() {
     { id: idCount, firstName, lastName, attending },
   ];
 
-  console.log(listOfNamesArray);
-
   useEffect(() => {
     async function getAllGuests() {
       const response = await fetch(`${baseUrl}/`);
@@ -133,9 +131,7 @@ function App() {
         },
         body: JSON.stringify({ firstName, lastName }),
       });
-      console.log(response);
       const createdGuest = await response.json();
-      console.log(createdGuest);
       return createdGuest;
     }
     createNewGuest(firstName, lastName, attending);
@@ -144,7 +140,7 @@ function App() {
   const handleRSVP = (e) => {
     if (e.target.value === 'Attending') {
       setAttending(true);
-    } else {
+    } else if (e.target.value === 'Not Attending') {
       setAttending(false);
     }
   };
@@ -157,11 +153,32 @@ function App() {
         listAfterDeletion.push(listOfNamesArray[i]);
       }
     }
-        
+
     setListOfNamesArray(listAfterDeletion);
   }
 
+  const clearAllListNameHelper = () => {
+    const urlArray = [];
+    for (let i = 0; i < listOfNamesArray.length; i++) {
+      urlArray.push(`${baseUrl}/${i}`);
+    }
+    return urlArray;
+  };
+
+  async function deleteAllGuestsFromServer() {
+    const urls = clearAllListNameHelper();
+
+    for (const url of urls) {
+      const response = await fetch(`${url}`, {
+        method: 'DELETE',
+      });
+      const deletedGuest = await response.json();
+      console.log(deletedGuest);
+    }
+  }
+
   function handleClearAll() {
+    deleteAllGuestsFromServer();
     setListOfNamesArray([]);
   }
 
