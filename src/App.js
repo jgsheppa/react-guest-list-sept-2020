@@ -72,7 +72,7 @@ const filterStyles = css`
   }
 `;
 
-const baseUrl = 'https://upleveled-api.herokuapp.com/';
+const baseUrl = 'https://upleveled-api.herokuapp.com';
 console.log(baseUrl);
 
 function App() {
