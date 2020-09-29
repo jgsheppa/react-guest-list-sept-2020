@@ -160,7 +160,7 @@ function App() {
   const clearAllListNameHelper = () => {
     const urlArray = [];
     for (let i = 0; i < listOfNamesArray.length; i++) {
-      urlArray.push(`${baseUrl}/${i}`);
+      urlArray.push(`${baseUrl}/${listOfNamesArray[i].id}`);
     }
     return urlArray;
   };
