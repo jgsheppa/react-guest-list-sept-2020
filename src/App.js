@@ -72,7 +72,7 @@ const filterStyles = css`
   }
 `;
 
-const baseUrl = 'https://upleveled-api.herokuapp.com';
+const baseUrl = 'https://upleveled-api.herokuapp.com/';
 console.log(baseUrl);
 
 function App() {
@@ -106,16 +106,8 @@ function App() {
       return updatedGuest;
     }
 
-    async function deleteGuest() {
-      const response = await fetch(`${baseUrl}/1`, { method: 'DELETE' });
-      const deletedGuest = await response.json();
-      return deletedGuest;
-    }
-
     updateGuest();
     getAllGuests();
-
-    deleteGuest();
   }, []);
 
   const handleFirstNameChange = (e) => {
@@ -165,6 +157,7 @@ function App() {
     async function deleteGuest() {
       const response = await fetch(`${baseUrl}/1`, { method: 'DELETE' });
       const deletedGuest = await response.json();
+      console.log(deletedGuest);
       return deletedGuest;
     }
 
