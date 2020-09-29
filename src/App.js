@@ -73,6 +73,7 @@ const filterStyles = css`
 `;
 
 const baseUrl = 'https://upleveled-api.herokuapp.com/';
+console.log(baseUrl);
 
 function App() {
   const [firstName, setFirstName] = useState('');
