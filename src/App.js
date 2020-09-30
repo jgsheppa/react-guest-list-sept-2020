@@ -222,10 +222,10 @@ function App() {
           </div>
         </div>
         <div css={filterStyles}>
-          <p>Filters: </p>
+          <p>Filter by: </p>
           <button onClick={handleAttendingFilter}>Attending</button>
           <button onClick={handleNonAttendingFilter}>Not Attending</button>
-          <button onClick={handleViewAllGuests}>Show All Guests</button>
+          <button onClick={handleViewAllGuests}>All Guests</button>
         </div>
         <div>
           <GuestList
