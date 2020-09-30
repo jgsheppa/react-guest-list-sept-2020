@@ -18,7 +18,7 @@ const containerStyles = css`
 
 const inputContainterStyles = css`
   display: flex;
-  display: row;
+  flex-direction: row;
   justify-content: center;
   align-content: center;
   border: solid;
@@ -31,8 +31,8 @@ const inputContainterStyles = css`
 const buttonStyles = css`
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-content: center;
+  margin-top: 52px;
+  margin-left: 20px;
   padding: 10px 20px;
   max-width: 1440px;
 
@@ -60,8 +60,9 @@ const filterStyles = css`
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
   padding: 10px 20px;
-  max-width: 1440px;
+  max-width: 800px;
 
   button {
     background-color: #fff;
@@ -69,6 +70,7 @@ const filterStyles = css`
     border-color: #666;
     border-width: 2px;
     font-weight: 200px;
+    margin-left: 10px;
   }
 `;
 
@@ -220,8 +222,9 @@ function App() {
           </div>
         </div>
         <div css={filterStyles}>
-          <button onClick={handleNonAttendingFilter}>Non-Attending</button>
+          <p>Filters: </p>
           <button onClick={handleAttendingFilter}>Attending</button>
+          <button onClick={handleNonAttendingFilter}>Not Attending</button>
           <button onClick={handleViewAllGuests}>Show All Guests</button>
         </div>
         <div>
