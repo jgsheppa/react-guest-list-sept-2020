@@ -92,7 +92,7 @@ function App() {
     async function getAllGuests() {
       const response = await fetch(`${baseUrl}/`);
       const allGuests = await response.json();
-      return setListOfNamesArray(allGuests);
+      setListOfNamesArray(allGuests);
     }
 
     async function updateGuest() {
@@ -134,9 +134,10 @@ function App() {
         body: JSON.stringify({ firstName, lastName }),
       });
       const createdGuest = await response.json();
+      console.log(response);
       return createdGuest;
     }
-    createNewGuest(firstName, lastName, attending);
+    createNewGuest();
   };
 
   const handleRSVP = (e) => {
@@ -185,12 +186,9 @@ function App() {
   }
 
   const filterListOfNames = listOfNamesArray.filter((name) => {
-    if (filter === 'Attending' && name.attending !== 'Attending') {
+    if (filter === 'Attending' && name.attending !== true) {
       return false;
-    } else if (
-      filter === 'Not Attending' &&
-      name.attending !== 'Not Attending'
-    ) {
+    } else if (filter === 'Not Attending' && name.attending !== false) {
       return false;
     }
     return true;
@@ -216,6 +214,8 @@ function App() {
             handleFirstNameChange={handleFirstNameChange}
             handleLastNameChange={handleLastNameChange}
             handleRSVP={handleRSVP}
+            firstName={firstName}
+            lastName={lastName}
           ></UserInput>
           <div css={buttonStyles}>
             <button onClick={handleSubmit}>Submit</button>
