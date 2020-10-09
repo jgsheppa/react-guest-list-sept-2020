@@ -68,7 +68,6 @@ function GuestList({ deleteGuest, filterListOfNames }) {
       method: 'DELETE',
     });
     const deletedGuest = await response.json();
-    console.log(deletedGuest);
     return deletedGuest;
   }
 

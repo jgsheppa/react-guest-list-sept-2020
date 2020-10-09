@@ -92,7 +92,6 @@ function App() {
     async function getAllGuests() {
       const response = await fetch(`${baseUrl}/`);
       const allGuests = await response.json();
-      console.log(allGuests);
       setListOfNamesArray(allGuests);
     }
     getAllGuests();
@@ -115,7 +114,6 @@ function App() {
       body: JSON.stringify({ firstName, lastName, attending }),
     });
     const createdGuest = await response.json();
-    console.log(createdGuest);
     return createdGuest;
   }
 
