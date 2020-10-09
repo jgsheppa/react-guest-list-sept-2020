@@ -55,16 +55,16 @@ function GuestList({ deleteGuest, filterListOfNames }) {
   `;
 
   function isAttending(obj) {
-    if (obj.attending === true) {
+    if (obj.attending === 'Attending') {
       return 'Attending';
     }
     return 'Not Attending';
   }
 
-  const baseUrl = 'https://upleveled-api.herokuapp.com';
+  const deleteUrl = 'https://upleveled-api.herokuapp.com';
 
   async function deleteGuestFromServer(item) {
-    const response = await fetch(`${baseUrl}/${item.id}`, {
+    const response = await fetch(`${deleteUrl}/${item.id}`, {
       method: 'DELETE',
     });
     const deletedGuest = await response.json();

@@ -80,7 +80,7 @@ function App() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [listOfNamesArray, setListOfNamesArray] = useState([]);
-  const [attending, setAttending] = useState(true);
+  const [attending, setAttending] = useState('Attending');
   const [idCount, setIdCount] = useState(0);
   const [filter, setFilter] = useState('unfiltered');
   const wholeListOfNames = [
@@ -92,22 +92,9 @@ function App() {
     async function getAllGuests() {
       const response = await fetch(`${baseUrl}/`);
       const allGuests = await response.json();
+      console.log(allGuests);
       setListOfNamesArray(allGuests);
     }
-
-    async function updateGuest() {
-      const response = await fetch(`${baseUrl}/1`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ attending: true }),
-      });
-      const updatedGuest = await response.json();
-      return updatedGuest;
-    }
-
-    updateGuest();
     getAllGuests();
   }, []);
 
@@ -119,32 +106,34 @@ function App() {
     setLastName(e.target.value);
   };
 
-  const handleSubmit = () => {
+  async function createNewGuest() {
+    const response = await fetch(`${baseUrl}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ firstName, lastName, attending }),
+    });
+    const createdGuest = await response.json();
+    console.log(createdGuest);
+    return createdGuest;
+  }
+
+  async function handleSubmit() {
     setListOfNamesArray(wholeListOfNames);
     setLastName('');
     setFirstName('');
     setIdCount(idCount + 1);
 
-    async function createNewGuest() {
-      const response = await fetch(`${baseUrl}/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ firstName, lastName }),
-      });
-      const createdGuest = await response.json();
-      console.log(response);
-      return createdGuest;
-    }
-    createNewGuest();
-  };
+    const newGuest = await createNewGuest();
+    return newGuest;
+  }
 
   const handleRSVP = (e) => {
     if (e.target.value === 'Attending') {
-      setAttending(true);
+      setAttending('Attending');
     } else if (e.target.value === 'Not Attending') {
-      setAttending(false);
+      setAttending('Not Attending');
     }
   };
 
@@ -180,15 +169,19 @@ function App() {
     }
   }
 
-  function handleClearAll() {
-    deleteAllGuestsFromServer();
+  async function handleClearAll() {
+    const deleteGuests = await deleteAllGuestsFromServer();
     setListOfNamesArray([]);
+    return deleteGuests;
   }
 
   const filterListOfNames = listOfNamesArray.filter((name) => {
-    if (filter === 'Attending' && name.attending !== true) {
+    if (filter === 'Attending' && name.attending !== 'Attending') {
       return false;
-    } else if (filter === 'Not Attending' && name.attending !== false) {
+    } else if (
+      filter === 'Not Attending' &&
+      name.attending !== 'Not Attending'
+    ) {
       return false;
     }
     return true;
