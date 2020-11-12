@@ -223,7 +223,6 @@ function App() {
             wholeListOfNames={wholeListOfNames}
             deleteGuest={deleteGuest}
             filterListOfNames={filterListOfNames}
-            // deleteGuestFromServer={deleteGuestFromServer}
           />
         </div>
       </div>
