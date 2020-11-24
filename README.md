@@ -4,8 +4,8 @@ This project is a guest list made with React hooks. Users can add and delete gue
 
 Guests may also be filtered by their attendence status.
 
-![Guest list example](https://github.com/jgsheppa/react-meme-generator-ul-2020/blob/master/B.png)
+![Guest list example](https://github.com/jgsheppa/react-guest-list-sept-2020/blob/master/public/guest-list-shot.png)
 
 ## Set-up
 
-Fork this repository and open it in your code editor.
+Fork this repository and open it in your code editor. To run, enter `yarn start` in the terminal.
