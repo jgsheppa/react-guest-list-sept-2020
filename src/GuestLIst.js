@@ -2,8 +2,8 @@
 /** @jsxFrag React.Fragment */
 /*eslint-disable no-unused-vars*/
 import React from 'react';
-import './App.css';
 import { jsx, css } from '@emotion/core';
+import './App.css';
 
 const unorderedListStyles = css`
   display: flex;

@@ -3,10 +3,10 @@
 /*eslint-disable no-unused-vars*/
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import Header from './Header.js';
 import { jsx, css } from '@emotion/core';
 import GuestList from './GuestLIst';
 import UserInput from './UserInput.js';
+import Header from './Header.js';
 
 const containerStyles = css`
   display: flex;
