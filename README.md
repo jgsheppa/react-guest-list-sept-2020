@@ -10,4 +10,4 @@ Guests may also be filtered by their attendence status.
 
 Fork this repository and open it in your code editor. To run, enter `yarn start` in the terminal.
 
-This project uses an API from another repository. Click [here](https://github.com/jgsheppa/guest-list-api-oct-2020) to see the API. This API was deployed using `Heroku`.
+This project uses an API which was forked from the Upleveled API. Click [here](https://github.com/jgsheppa/guest-list-api-oct-2020) to see the API. This API was deployed using `Heroku`.
